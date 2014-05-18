@@ -1,0 +1,50 @@
+(define fResolventeX1
+  (lambda (a b c)
+    (/ (+ (- b) (sqrt (- (expt b 2) (* 4 a c)))) (* 2 a))))
+
+(define fResolventeX2
+  (lambda (a b c)
+    (/ (- (- b) (sqrt (- (expt b 2) (* 4 a c)))) (* 2 a))))
+
+(define deltaNegativo
+  (lambda (a b c)
+    (if (< (- (* b b) (* 4 a c)) 0)
+        #t
+        #f)))
+
+(define calculaResultado
+  (lambda (a b c)
+    (let ((x1 (fResolventeX1 a b c))
+          (x2 (fResolventeX2 a b c)))
+      (if (= x1 x2)
+          (begin (display "X: ")(display x1)(newline)
+                 (display "(a funcao so tem um zero)")(newline))
+          (begin (display "Resultado: ")(newline)
+                 (display "X1: ")(display x1)(newline)
+                 (display "X2: ")(display x2)(newline))))))
+
+(define fResolvente
+  (lambda (a b c)
+    (if (deltaNegativo a b c)
+        (begin (display ".: ! Eq. Impossivel ! :.")(newline))
+        (calculaResultado a b c))))
+
+(define main
+  (lambda ()
+    (display "::::::::::::::::::::::::")(newline)
+    (display ":: Formula Resolvente ::")(newline)
+    (display "::::::::::::::::::::::::")(newline)
+    (newline)
+    (display "Formula: ax^2 + bx + c = 0")(newline)
+    (newline)
+    (let* ((a (begin (display "Insert a:")(newline)(read)))
+           (lixo (read-char))
+           (b (begin (display "Insert b:")(newline)(read)))
+           (lixo (read-char))
+           (c (begin (display "Insert c:")(newline)(read)))
+           (lixo (begin (read-char)(newline))))
+      (if (and (number? a) (number? b) (number? c))
+          (fResolvente a b c)
+          (begin (display ".: ! Bad Input ! :.")(newline))))))
+
+(main)
